@@ -2,14 +2,23 @@ const express = require('express');
 const ejs = require('ejs');
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
+
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.set("views","./views")
+app.set("view engine","ejs");
+
+let products = [];
 
 app.get('/getproducts', (req, res) => {
     const getProducts = async () => {
         try {
             const response = await axios.get('https://fakestoreapi.com/products');
             let result = response.data.slice(0, 10);
-            res.render('index.ejs', { data: result });
+            products = [...result];
+            res.render('index.ejs', { data: products });
         }
         catch (error) {
             console.error(error);
@@ -21,8 +30,6 @@ app.get('/getproducts', (req, res) => {
 app.get('/addProduct', (req, res) => {
     res.render('addProduct.ejs');
 })
-
-let products = [];
 
 app.post('/postProducts', async (req, res) => {
     let newProduct = {
@@ -39,11 +46,10 @@ app.post('/postProducts', async (req, res) => {
     }
     try {
         const response = await axios.get('https://fakestoreapi.com/products');
-        result = bodyParser.json(response.data.slice(0, 10));
+        result = response.data.slice(0, 10);
         products = [...result];
         products.push(newProduct);
-        // res.render('index.ejs', { data: result })
-        console.log(products);
+        res.render('index.ejs', { data: products });
     }
     catch (error) {
         console.error(error);

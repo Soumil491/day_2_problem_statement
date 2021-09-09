@@ -7,6 +7,32 @@
     <title>Add Product</title>
 </head>
 <body>
-    
+    <form action="/postProduct" method="POST">
+        <label for="id">ID:</label>
+        <input id="id" type="number">
+        <br><br>
+        <label for="title">Title:</label>
+        <input id="title" type="text">
+        <br><br>
+        <label for="price">Price:</label>
+        <input type="number" id="price">
+        <br><br>
+        <label for="description">Description: </label>
+        <input type="text" id="description">
+        <br><br>
+        <label for="category">Category:</label>
+        <input type="text" id="Category">
+        <br><br>
+        <label for="image">Image:</label>
+        <input type="file" id="image" accept=".jpg, .png">
+        <br><br>
+        <label for="rate">Rate:</label>
+        <input type="number" id="rate">
+        <br><br>
+        <label for="count">Count:</label>
+        <input type="number" id="count">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
