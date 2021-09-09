@@ -59,6 +59,22 @@ app.post('/postProduct', async (req, res) => {
     }
 })
 
+app.get('/productsAndUsers', async (req, res) => {
+    try{
+        let [responseProducts, responseUsers] = await axios.all([
+            axios.get('https://fakestoreapi.com/products'),
+            axios.get('https://fakestoreapi.com/users')
+        ])
+        res.render('productsAndUsers.ejs', {
+            dataProducts: responseProducts.data,
+            dataUsers: responseUsers.data
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+})
+
 app.listen(5000, function () {
     console.log('server is up on 5000');
 })
